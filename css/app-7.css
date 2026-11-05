@@ -1,0 +1,179 @@
+/* Opening poster, in the colours of the SudHR login page. */
+.poster {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: clamp(24px, 4.5vh, 48px) clamp(24px, 5vw, 80px) clamp(18px, 3vh, 32px);
+  background: linear-gradient(127deg, #3f9e83 0%, #0f6aa6 48%, #0048bb 100%);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.5, 0, 0.3, 1);
+}
+.poster.off {
+  opacity: 0;
+  transform: scale(1.04);
+  pointer-events: none;
+}
+.po-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.13) 1px, transparent 1px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse at center, transparent 30%, #000 100%);
+  mask-image: radial-gradient(ellipse at center, transparent 30%, #000 100%);
+}
+.po-glow {
+  position: absolute;
+  width: 62vmax;
+  height: 62vmax;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.4;
+  animation: po-drift 16s ease-in-out infinite alternate;
+}
+.po-glow.g1 {
+  top: -30vmax;
+  left: -18vmax;
+  background: #5eead4;
+}
+.po-glow.g2 {
+  right: -22vmax;
+  bottom: -34vmax;
+  background: #3b82f6;
+  animation-delay: -8s;
+}
+@keyframes po-drift {
+  to {
+    transform: translate(7vmax, 5vmax) scale(1.1);
+  }
+}
+.po-org,
+.po-mid,
+.po-facts,
+.po-hint {
+  position: relative;
+  opacity: 0;
+}
+.poster.in .po-org,
+.poster.in .po-mid,
+.poster.in .po-facts,
+.poster.in .po-hint {
+  animation: po-rise 0.9s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+}
+.poster.in .po-mid {
+  animation-delay: 0.2s;
+}
+.poster.in .po-facts {
+  animation-delay: 0.5s;
+}
+.poster.in .po-hint {
+  animation-delay: 1s;
+}
+@keyframes po-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.po-org {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-size: clamp(16px, 2.3vh, 22px);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-align: center;
+}
+.po-org img {
+  width: clamp(72px, 13vh, 120px);
+  height: clamp(72px, 13vh, 120px);
+  object-fit: contain;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.28));
+}
+.po-mid {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(14px, 3vh, 28px);
+  min-height: 0;
+  text-align: center;
+}
+.po-logo {
+  width: auto;
+  max-width: 88vw;
+  height: clamp(84px, 19vh, 176px);
+  filter: drop-shadow(0 14px 30px rgba(0, 0, 0, 0.22));
+}
+.po-mid h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(26px, 5.2vh, 50px);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.po-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  width: min(980px, 100%);
+  margin: 0 0 clamp(12px, 2.4vh, 24px);
+  padding: 0;
+  list-style: none;
+}
+.po-facts li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: clamp(10px, 1.9vh, 18px) 14px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.11);
+  text-align: center;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+.po-facts b {
+  font-size: clamp(24px, 4.4vh, 40px);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.po-facts span {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: clamp(13px, 1.9vh, 16px);
+}
+.po-hint {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+}
+@media (max-width: 640px) {
+  .po-facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .po-glow {
+    animation: none;
+  }
+  .poster.in .po-org,
+  .poster.in .po-mid,
+  .poster.in .po-facts,
+  .poster.in .po-hint {
+    animation-duration: 0.01s;
+    animation-delay: 0s;
+  }
+}

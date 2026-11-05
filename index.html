@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="uz">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SudHR — tanlov va ishga qabul</title>
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/app-2.css" />
+    <link rel="stylesheet" href="css/app-3.css" />
+    <link rel="stylesheet" href="css/app-4.css" />
+    <link rel="stylesheet" href="css/app-5.css" />
+    <link rel="stylesheet" href="css/app-6.css" />
+    <link rel="stylesheet" href="css/app-7.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="brand">
+        <span class="brand-mark" data-ic="shield"></span>
+        <span class="brand-t">Sud<b>HR</b><small>kadrlar boshqaruvi tizimi</small></span>
+      </div>
+      <nav class="chaps" id="chaps" aria-label="Qismlar"></nav>
+      <nav class="steps" id="steps" aria-label="Bosqichlar"></nav>
+      <div class="top-tools">
+        <button class="tool" id="fsBtn" title="To'liq ekran (F)"><span data-ic="maximize"></span></button>
+      </div>
+    </header>
+
+    <main class="stage">
+      <div class="title-row">
+        <div class="title-l">
+          <span class="step-no" id="stepNo"></span>
+          <div>
+            <h1 id="title"></h1>
+            <p id="lead"></p>
+          </div>
+        </div>
+        <div class="actor" id="actor"></div>
+      </div>
+      <div class="scene" id="scene"></div>
+    </main>
+
+    <footer class="foot">
+      <button class="btn ghost sm" id="resetBtn"><span data-ic="rotate"></span>Qaytadan</button>
+      <div class="foot-c">
+        <button class="btn ghost" id="backBtn"><span data-ic="arrow-left"></span>Orqaga</button>
+        <button class="btn primary" id="actBtn"></button>
+        <button class="btn ghost" id="nextBtn">Keyingisi<span data-ic="arrow-right"></span></button>
+      </div>
+      <div class="foot-r"><span class="demo-note">Barcha ma'lumotlar sun'iy</span><b id="counter"></b></div>
+    </footer>
+
+    <div class="signfx" id="signFx" aria-live="polite">
+      <div class="sg-card">
+        <div class="sg-key">
+          <span class="sg-chip" data-ic="key"></span>
+          <div><b>E-IMZO</b><small id="sgOwner"></small></div>
+        </div>
+        <div class="sg-ico"><i class="sg-spin"></i><span class="sg-pen" data-ic="pen"></span><span class="sg-ok" data-ic="check"></span></div>
+        <b class="sg-t" id="sgT"></b>
+        <small class="sg-s" id="sgS"></small>
+      </div>
+    </div>
+
+    <div class="bigok" id="bigOk" role="alertdialog" aria-live="assertive">
+      <div class="bigok-card">
+        <svg class="bigok-ic" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24" /><path d="M14 27l8 8 16-17" /></svg>
+        <h2 id="bigOkT"></h2>
+        <p id="bigOkP"></p>
+      </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="js/icons.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/data-2.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/portrait.js"></script>
+    <script src="js/frames.js"></script>
+    <script src="js/scenes-0.js"></script>
+    <script src="js/scenes-1.js"></script>
+    <script src="js/scenes-2.js"></script>
+    <script src="js/scenes-3.js"></script>
+    <script src="js/scenes-4.js"></script>
+    <script src="js/scenes-5.js"></script>
+    <script src="js/scenes-6.js"></script>
+    <script src="js/init.js"></script>
+    <script src="js/poster.js"></script>
+  </body>
+</html>

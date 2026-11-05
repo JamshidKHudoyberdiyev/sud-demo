@@ -1,0 +1,158 @@
+// Chapter 2 data: region, oversight, integrations, rating. People and numbers are synthetic; position titles follow the Supreme Court's list.
+const DATA2 = {
+  region: "Toshkent viloyati",
+  regionHr: { ini: "UD", role: "Viloyat kadrlar bo'limi", name: "Umarov Dostonbek" },
+  centralHr: { ini: "YA", role: "Oliy sud · Inson resurslari boshqarmasi", name: "Yo'ldoshev Anvar" },
+
+  // courts of the region: [name, staff, filled, open announcements]
+  courts: [
+    ["Toshkent viloyat sudi", 294, 275, 6],
+    ["Chirchiq shahar sudi", 38, 36, 1],
+    ["Angren shahar sudi", 34, 31, 2],
+    ["Olmaliq shahar sudi", 32, 31, 0],
+    ["Zangiota tumani sudi", 29, 25, 2],
+    ["Qibray tumani sudi", 27, 26, 1],
+    ["Yangiyo'l tumani sudi", 26, 22, 0],
+    ["Bo'stonliq tumani sudi", 22, 20, 1],
+  ],
+  drill: {
+    court: "Yangiyo'l tumani sudi",
+    vacant: [
+      { pos: "Katta konsultant", dept: "Devonxona", days: 41 },
+      { pos: "Katta konsultant", dept: "Kadrlar bo'limi", days: 17 },
+      { pos: "Bosh konsultant", dept: "Devonxona", days: 63 },
+      { pos: "Arxiv mudiri", dept: "Arxiv", days: 9 },
+    ],
+  },
+
+  search: [
+    { name: "Rahimov Jasur Akmalovich", ini: "RJ", court: "O'zbekiston Respublikasi Oliy sudi", pos: "Katta konsultant", me: true },
+    { name: "Rahimov Sherzod Bahodirovich", ini: "RS", court: "Chirchiq shahar sudi", pos: "Bosh konsultant" },
+    { name: "Rahimova Gulnoza Erkinovna", ini: "RG", court: "Angren shahar sudi", pos: "Bosh konsultant" },
+  ],
+  smart: {
+    rows: [
+      ["Tug'ilgan joyi", "Toshkent shahri"],
+      ["Ish joyi", "O'zbekiston Respublikasi Oliy sudi"],
+      ["Lavozimi", "Katta konsultant"],
+      ["Ma'lumoti", "Oliy, yuridik"],
+      ["Sudlanganligi", "Yo'q", "good"],
+      ["Ko'rilayotgan sud ishlari", "Yo'q", "good"],
+    ],
+    risk: [
+      ["Sudlanganliklar", 0],
+      ["Ma'muriy huquqbuzarliklar", 0],
+      ["Aliment ishlari", 0],
+      ["Ijro ishlari", 0],
+      ["Narkologiya", 0],
+      ["Psixiatriya", 0],
+    ],
+    social: [
+      ["Ish joyi", 33],
+      ["Oliy ma'lumot", 33],
+      ["Oilali", 33],
+    ],
+    boxes: [
+      { ic: "home", t: "Doimiy yashash manzili", rows: [["Ro'yxatga olingan", "14.05.2019"], ["Manzil", "Toshkent sh., Chilonzor tumani, Bunyodkor ko'chasi, 12-uy"]] },
+      { ic: "users", t: "Oilaviy holati", rows: [["Holati", "Oilali"], ["Nikoh sanasi", "22.08.2021"], ["Farzandlar soni", "1"]] },
+      { ic: "shield", t: "Sog'lig'i va mehnatga layoqati", rows: [["Narkologiya qaydi", "Mavjud emas"], ["Psixiatriya qaydi", "Mavjud emas"]] },
+      { ic: "grad", t: "Ta'lim (diplom)", rows: [["Muassasa", "Toshkent davlat yuridik universiteti"], ["Darajasi", "Bakalavr"], ["Berilgan sana", "30.06.2019"]] },
+    ],
+    empty: [
+      ["building", "Ko'chmas mulk"],
+      ["wallet", "Ijro hujjatlari va qarzdorlik"],
+      ["scale", "Sudlanganlik"],
+      ["alert", "Ma'muriy huquqbuzarliklar"],
+    ],
+  },
+
+  // systems the HR system exchanges data with; g = group
+  systems: [
+    { t: "DPM", s: "Pasport, manzil", ic: "id", g: 0 },
+    { t: "OneID", s: "Yagona identifikatsiya", ic: "key", g: 0 },
+    { t: "E-IMZO", s: "Elektron imzo", ic: "pen", g: 0 },
+    { t: "IIV", s: "Sudlanganlik", ic: "scale", g: 1 },
+    { t: "MIB", s: "Ijro ishlari", ic: "gavel", g: 1 },
+    { t: "Narkologiya", s: "Dispanser hisobi", ic: "pill", g: 1 },
+    { t: "Psixonevrologiya", s: "Dispanser hisobi", ic: "pulse", g: 1 },
+    { t: "Soliq qo'mitasi", s: "STIR, qarzdorlik", ic: "wallet", g: 2 },
+    { t: "Pensiya fondi", s: "Nafaqa", ic: "wallet", g: 2 },
+    { t: "Kadastr", s: "Ko'chmas mulk", ic: "home", g: 2 },
+    { t: "FHDYo", s: "Nikoh, farzandlar", ic: "users", g: 3 },
+    { t: "Mehnat vazirligi", s: "Ish tarixi", ic: "briefcase", g: 3 },
+    { t: "OTM reyestri", s: "Diplom", ic: "grad", g: 3 },
+    { t: "TMEK", s: "Nogironlik", ic: "shield", g: 3 },
+    { t: "vacancy.sud.uz", s: "Tanlov portali", ic: "globe", g: 4 },
+    { t: "Turniket", s: "Kirish-chiqish", ic: "clock", g: 4 },
+  ],
+  groups: ["Shaxs va imzo", "Huquqiy tekshiruv", "Moliya va mulk", "Ijtimoiy va ta'lim", "Sud tizimi ichida"],
+
+  // today's attendance per court: [court, expected, came, late, excused]
+  attendance: [
+    ["Toshkent viloyat sudi", 275, 256, 8, 11],
+    ["Chirchiq shahar sudi", 36, 33, 1, 2],
+    ["Angren shahar sudi", 31, 27, 3, 1],
+    ["Olmaliq shahar sudi", 31, 30, 0, 1],
+    ["Zangiota tumani sudi", 25, 21, 2, 1],
+    ["Qibray tumani sudi", 26, 25, 1, 0],
+    ["Yangiyo'l tumani sudi", 22, 18, 2, 1],
+    ["Bo'stonliq tumani sudi", 20, 19, 0, 1],
+  ],
+  ticker: [
+    ["08:41", "Olmaliq shahar sudi", "Karimov D.", "in"],
+    ["08:44", "Toshkent viloyat sudi", "Alieva M.", "in"],
+    ["08:47", "Chirchiq shahar sudi", "Nurmatov O.", "in"],
+    ["08:52", "Qibray tumani sudi", "Sobirova Z.", "in"],
+    ["08:55", "Toshkent viloyat sudi", "Sodiqov J.", "in"],
+    ["08:58", "Angren shahar sudi", "Tursunov B.", "in"],
+    ["09:07", "Zangiota tumani sudi", "Qodirov B.", "late"],
+    ["09:14", "Angren shahar sudi", "Ergasheva D.", "late"],
+    ["09:16", "Yangiyo'l tumani sudi", "Xasanov U.", "late"],
+    ["09:21", "Bo'stonliq tumani sudi", "Mirzayev S.", "in"],
+  ],
+  late: [
+    { name: "Ergasheva D.", court: "Angren shahar sudi", time: "09:14", st: "Kech qoldi · 14 daqiqa", tone: "warn" },
+    { name: "Xasanov U.", court: "Yangiyo'l tumani sudi", time: "09:16", st: "Kech qoldi · 16 daqiqa", tone: "warn" },
+    { name: "Qodirov B.", court: "Zangiota tumani sudi", time: "09:07", st: "Sababli · tibbiy ma'lumotnoma", tone: "info" },
+    { name: "Yusupov A.", court: "Toshkent viloyat sudi", time: "—", st: "Xizmat safarida", tone: "info" },
+    { name: "Nurmatova S.", court: "Yangiyo'l tumani sudi", time: "—", st: "Aniqlashtirish kerak: qayd yo'q", tone: "muted" },
+  ],
+
+  // [region, staff, filled, attendance %]
+  regions: [
+    ["Qoraqalpog'iston R.", 412, 371, 96.1],
+    ["Andijon", 398, 379, 97.4],
+    ["Buxoro", 341, 322, 96.8],
+    ["Jizzax", 263, 239, 95.2],
+    ["Qashqadaryo", 437, 398, 95.9],
+    ["Navoiy", 248, 236, 97.9],
+    ["Namangan", 376, 351, 96.3],
+    ["Samarqand", 468, 441, 97.1],
+    ["Surxondaryo", 352, 304, 93.4],
+    ["Sirdaryo", 214, 197, 95.6],
+    ["Toshkent vil.", 719, 691, 96.9],
+    ["Farg'ona", 455, 433, 97.6],
+    ["Xorazm", 301, 279, 96.0],
+    ["Toshkent sh.", 612, 590, 98.2],
+  ],
+
+  criteria: [
+    ["Davomat va ish vaqti", 30],
+    ["Intizom (jazo yo'qligi)", 25],
+    ["Malaka oshirish", 20],
+    ["Rag'batlar", 15],
+    ["Ish staji", 10],
+  ],
+  top: [
+    { name: "Karimova Nodira", ini: "KN", court: "Samarqand viloyat sudi", pos: "Bosh konsultant", score: 97.2 },
+    { name: "Tursunov Bobur", ini: "TB", court: "Toshkent shahar sudi", pos: "Bosh konsultant", score: 95.8 },
+    { name: "Sobirova Zarina", ini: "SZ", court: "Farg'ona viloyat sudi", pos: "Katta konsultant", score: 94.1 },
+    { name: "Nurmatov Otabek", ini: "NO", court: "Andijon viloyat sudi", pos: "Bosh konsultant", score: 92.6 },
+    { name: "Alieva Malika", ini: "AM", court: "Toshkent viloyat sudi", pos: "Bosh buxgalter", score: 91.9 },
+    { name: "Mirzayev Sardor", ini: "MS", court: "Buxoro viloyat sudi", pos: "Arxiv mudiri", score: 90.4 },
+    { name: "Karimov Doniyor", ini: "KD", court: "Namangan viloyat sudi", pos: "Bosh konsultant", score: 89.7 },
+    { name: "Ergasheva Dilnoza", ini: "ED", court: "Xorazm viloyat sudi", pos: "Katta konsultant", score: 88.9 },
+    { name: "Qodirov Bekzod", ini: "QB", court: "Navoiy viloyat sudi", pos: "Katta konsultant", score: 88.2 },
+    { name: "Yusupov Akmal", ini: "YA", court: "Jizzax viloyat sudi", pos: "Arxiv mudiri", score: 87.5 },
+  ],
+};

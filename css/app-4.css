@@ -1,0 +1,438 @@
+/* Dashboard after login, attendance rating, live data feed, hiring path, small notes. */
+
+/* ---------------------------------------------------------------- dashboard */
+.dash {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.dash-kpis {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+}
+.dash-kpi,
+.dash-c {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+.dk-h {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 36px;
+}
+.dk-h small {
+  color: var(--ink-2);
+  font-size: 12.5px;
+  line-height: 1.3;
+}
+.dk-ic {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--tone-50);
+  color: var(--tone);
+}
+.dash-kpi b {
+  display: block;
+  margin: 6px 0 8px;
+  font-size: 28px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.dash-kpi em {
+  display: block;
+  padding-top: 8px;
+  border-top: 1px solid var(--line-2);
+  color: var(--muted);
+  font-size: 11.5px;
+  font-style: normal;
+}
+.dash-charts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.dc-h {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.dc-h b {
+  font-size: 14px;
+}
+.vbars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: end;
+  gap: 18px;
+  height: 200px;
+  padding: 0 10px;
+}
+.vbars.age {
+  grid-template-columns: repeat(4, 1fr);
+}
+.vb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+  text-align: center;
+}
+.vb-col {
+  display: flex;
+  align-items: flex-end;
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 64px;
+  border-bottom: 1px solid var(--line);
+}
+.vb-col i {
+  display: block;
+  width: 100%;
+  border-radius: 6px 6px 0 0;
+  transition: height 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.vb b {
+  font-size: 14px;
+}
+.vb small {
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.2;
+}
+.hbars {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  height: 200px;
+}
+.hb {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 30px;
+  align-items: center;
+  gap: 10px;
+}
+.hb small {
+  color: var(--muted);
+}
+.hb > div {
+  height: 26px;
+  border-radius: 6px;
+  background: var(--line-2);
+  overflow: hidden;
+}
+.hb i {
+  display: block;
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+/* the first look at the system after login */
+.app.boot .hr-side {
+  animation: sideIn 0.7s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+.app.boot .hr-top {
+  animation: rise 0.5s 0.25s both;
+}
+.app.boot .hp-h {
+  animation: rise 0.5s 0.35s both;
+}
+.app.boot .dash-kpi,
+.app.boot .dash-c {
+  animation: rise 0.55s cubic-bezier(0.22, 0.8, 0.3, 1) both;
+  animation-delay: calc(0.45s + var(--i) * 0.08s);
+}
+.app.boot .hs-it {
+  animation: rise 0.4s both;
+}
+.app.boot .hs-it:nth-child(n) {
+  animation-delay: 0.35s;
+}
+@keyframes sideIn {
+  from {
+    transform: translateX(-100%);
+  }
+}
+
+/* ---------------------------------------------------------------- attendance rating */
+.s17 {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 16px;
+}
+.rr-card {
+  padding-bottom: 12px;
+  transition: opacity 0.4s;
+}
+.rr-card.dim {
+  opacity: 0.45;
+}
+.rr-list {
+  padding: 0 16px;
+}
+.rr {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 190px) minmax(0, 1fr) 62px;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  transition: background 0.3s;
+}
+.rr-k {
+  color: var(--muted);
+  font-weight: 800;
+  text-align: center;
+}
+.rr b {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* department names are long: shown in full, on two lines when needed */
+#rrDept .rr {
+  grid-template-columns: 26px minmax(0, 240px) minmax(0, 1fr) 62px;
+}
+#rrDept .rr b {
+  line-height: 1.25;
+  white-space: normal;
+}
+.rr-bar {
+  height: 10px;
+  border-radius: 6px;
+  background: var(--line-2);
+  overflow: hidden;
+}
+.rr-bar i {
+  display: block;
+  height: 100%;
+  border-radius: 6px;
+  background: var(--grad);
+  transition: width 0.8s cubic-bezier(0.3, 0.8, 0.3, 1);
+}
+.rr-v {
+  font-weight: 700;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.rr.gold {
+  background: #fffbeb;
+}
+.rr.gold .rr-k {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+  color: #fff;
+  font-size: 12px;
+}
+.rr.low {
+  background: #fff1f1;
+}
+.rr.low .rr-bar i {
+  background: linear-gradient(90deg, #f87171, #dc2626);
+}
+
+/* ---------------------------------------------------------------- integrations: data feed */
+.feed {
+  display: none;
+  padding: 14px;
+}
+.feed.on {
+  display: block;
+  animation: rise 0.45s both;
+}
+.legend.hide {
+  display: none;
+}
+.fd-h {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.fd-h b {
+  display: block;
+  font-size: 14px;
+}
+.fd-h small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.fd-row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  column-gap: 8px;
+  padding: 7px 8px;
+  border-top: 1px solid var(--line-2);
+  border-radius: 8px;
+  font-size: 12.5px;
+  transition: background 0.3s;
+}
+.fd-src {
+  grid-row: span 2;
+  align-self: center;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: var(--line-2);
+  color: var(--ink-2);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+.fd-t {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.fd-row.on {
+  background: var(--blue-50);
+}
+.fd-row.ok .fd-src {
+  background: var(--ok-50);
+  color: var(--ok);
+}
+.on-node.ping {
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.25), var(--sh-1);
+}
+.spoke.hot {
+  stroke-width: 3.5;
+  stroke-opacity: 1;
+}
+
+/* ---------------------------------------------------------------- hiring path + orders */
+.s8 .flow-st {
+  grid-column: 1 / -1;
+}
+.flow-st {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+}
+.fs-n {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  min-width: 90px;
+  text-align: center;
+}
+.fs-n span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--line-2);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.fs-n small {
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.2;
+}
+.fs-n.ok span {
+  background: var(--ok);
+  color: #fff;
+}
+.fs-n.ok small {
+  color: var(--ink-2);
+}
+.fs-n.cur span {
+  border: 2px solid var(--brand);
+  background: #fff;
+  color: var(--brand);
+}
+.fs-l {
+  flex: 1 1 auto;
+  height: 2px;
+  margin-bottom: 18px;
+  background: var(--ok);
+  opacity: 0.6;
+}
+.emp-orders {
+  margin-top: 14px;
+}
+.emp-orders > small {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+.eo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 13px;
+}
+.eo .ic {
+  color: var(--brand);
+}
+.eo em {
+  margin-left: auto;
+  color: var(--muted);
+  font-style: normal;
+  font-size: 12px;
+}
+
+/* ---------------------------------------------------------------- notes */
+.vs-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.vs-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #3730a3;
+  font-size: 12px;
+  font-weight: 600;
+}
+.sm-tags {
+  display: inline-flex;
+  gap: 6px;
+}
+
+@media (max-width: 1100px) {
+  .dash-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .dash-charts,
+  .s17 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .flow-st {
+    overflow-x: auto;
+  }
+}
