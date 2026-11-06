@@ -83,6 +83,11 @@ async function runLate(sc) {
 
 // ---------------------------------------------------------------- 2.5 republic oversight
 const regIndex = (r) => 0.6 * pct(r[2], r[1]) + 0.4 * r[3];
+// the HR department's scale, on the shown (rounded) value: 97-100 green, 95-96.9 yellow, below 95 red
+const regTone = (r) => {
+  const v = +regIndex(r).toFixed(1);
+  return v >= 97 ? "rt-top" : v >= 95 ? "rt-mid" : "rt-low";
+};
 STEPS.push({
   id: "respublika",
   frame: { type: "hr", url: "dashboard/republic", menu: "boshqarish", crumbs: ["Boshqarish", "Respublika kesimida"], user: DATA2.centralHr },
@@ -101,7 +106,7 @@ STEPS.push({
     const worst = R.map((r, k) => k).sort((a, b) => regIndex(R[a]) - regIndex(R[b]))[0];
     const tile = (k, rank) => {
       const r = R[k], fp = pct(r[2], r[1]);
-      const cls = got ? (rank < 3 ? "rt-top" : rank >= R.length - 2 ? "rt-low" : "") : "";
+      const cls = got ? regTone(r) : "";
       return `<div class="rt ${cls} ${sent && k === worst ? "sent" : ""}" data-r="${k}">
         <div class="rt-h"><b>${esc(r[0])}</b><span class="rt-rank">${got ? "#" + (rank + 1) : ""}</span></div>
         <div class="rt-v" data-v="${regIndex(r).toFixed(1)}">${got ? fmt(regIndex(r), 1) : "—"}</div>
@@ -115,6 +120,7 @@ STEPS.push({
       <div class="s14-side">
         <div class="card formula"><div class="card-h"><div><b>Hudud indeksi</b><small>Qanday hisoblanadi</small></div></div>
           <div class="fm"><span>Shtat to'ldirilishi</span><b>60%</b></div><div class="fm"><span>Davomat</span><b>40%</b></div>
+          <div class="fm-scale"><span class="g">97–100</span><span class="y">95–96,9</span><span class="r">94,9 va past</span></div>
           <div class="fm-note">Ko'rsatkichlar har kuni avtomatik yangilanadi</div></div>
         <div class="card task ${sent ? "sent" : ""}" id="task">
           <div class="task-h">${ic("file", 16)}<b>Topshiriq</b><span class="tag ${sent ? "ok" : "muted"}" id="taskSt">${sent ? "Yuborildi" : "Qoralama"}</span></div>
@@ -148,8 +154,7 @@ async function runRegions(sc) {
     const a = first.get(t), b = t.getBoundingClientRect();
     t.animate([{ transform: `translate(${(a.left - b.left) / ZOOM}px,${(a.top - b.top) / ZOOM}px)` }, { transform: "none" }], { duration: 700 * SPEED, easing: "cubic-bezier(.3,.8,.3,1)" });
     $(".rt-rank", t).textContent = "#" + (rank + 1);
-    if (rank < 3) t.classList.add("rt-top");
-    if (rank >= R.length - 2) t.classList.add("rt-low");
+    t.classList.add(regTone(R[+t.dataset.r]));
   });
   await wait(800);
   toast("Hududlar indeks bo'yicha saralandi");
