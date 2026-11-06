@@ -28,7 +28,8 @@ const DATA = {
     { dept: "Odil sudlov sohasidagi qonunchilikni tahlil qilish departamenti", pos: "Departament boshlig'i o'rinbosari", person: null },
   ],
   // counted from the phone list: 250 positions, 8 of them marked vacant
-  kpi: { total: 250, busy: 242, vacant: 8, announced: 5 },
+  // announced starts at 0: the card turns to 1 once the announcement in the next step is published
+  kpi: { total: 250, busy: 242, vacant: 8, announced: 0 },
 
   vacancy: {
     no: "E/14",
