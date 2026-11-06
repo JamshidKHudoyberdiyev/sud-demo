@@ -346,7 +346,7 @@ STEPS.push({
   id: "ariza",
   short: "Ariza",
   title: "Nomzod OneID orqali kirib ariza yuboradi",
-  lead: "Ro'yxatdan o'tish yo'q: OneID orqali kiriladi, shaxsiy ma'lumotlar davlat reyestridan keladi. Obyektivka profildan o'zi tuziladi, nomzod faqat pasport nusxasini yuklaydi.",
+  lead: "Ro'yxatdan o'tish yo'q: OneID orqali kiriladi, shaxsiy ma'lumotlar davlat reyestridan keladi. Obyektivka profildan o'zi tuziladi, nomzod faqat pasport nusxasini yuklaydi va ariza oldidan tanlov shartlariga rozilik bildiradi.",
   actor: CAND_ACTOR,
   frame: (p) => ({
     type: "vac",
@@ -356,6 +356,7 @@ STEPS.push({
   actions: [
     { label: "OneID orqali kirish", icon: "key", run: runOneId },
     { label: "Hujjatlarni tayyorlash", icon: "upload", run: runDocs },
+    { label: "Tanlov shartlariga rozilik", icon: "file", run: runTerms },
     { label: "Ariza yuborish", icon: "send", run: runSend },
   ],
   render(p) {
@@ -363,7 +364,8 @@ STEPS.push({
       V = DATA.vacancy,
       id = p >= 1,
       docs = p >= 2,
-      sent = p >= 3;
+      agreed = p >= 3,
+      sent = p >= 4;
     const rows = [
       ["hash", "JShShIR", C.pin],
       ["calendar", "Tug'ilgan sana", C.birth],
@@ -397,6 +399,7 @@ STEPS.push({
             </div>
             <div class="ap-r">
               <div class="vd-card"><small class="muted">Vakansiya</small><b class="ap-pos">${esc(V.pos)}</b><small>${esc(DATA.org)}<br>${esc(V.dept)}</small><div class="vc-foot">${ic("calendar", 13)} Muddati: ${V.until}</div>
+                <div class="of-agreed ${agreed ? "on" : ""}" id="ofAgreed">${ic("check", 13)} Tanlov shartlariga rozilik bildirildi</div>
                 <button class="vd-apply wide" id="sendBtn">${ic("send", 15)} Ariza yuborish</button></div>
               <div class="vd-card sent-card ${sent ? "on" : ""}" id="sentCard"><span class="sc-ic">${ic("check", 18)}</span><div><b>Ariza yuborildi</b><small>Kiruvchi raqam: ${C.appNo} · SudHR tizimiga yetib bordi</small></div></div>
             </div>
@@ -412,6 +415,7 @@ STEPS.push({
           <div class="oi-st" id="oiSt"><i class="mini-spin"></i> Tasdiqlanmoqda…</div>
         </div>
       </div>
+      ${termsHtml()}
       <div class="hr-pill ${sent ? "lit" : ""}" id="hrPill"><img src="assets/logo-dark.svg" alt="" /><div><b>Inson resurslari boshqarmasi · Kiruvchi</b><small>${esc(DATA.org)}</small></div><span class="nbadge">1</span></div>
     </div>`;
   },
@@ -463,6 +467,65 @@ async function runDocs(sc) {
     const tag = $(".tag, .up-btn", d);
     tag.outerHTML = `<span class="tag ok pop">${ic("check", 12)} Tayyor</span>`;
   }
+}
+
+// the terms of the competition (oferta), shown on vacancy.sud.uz before the Ariza; the acceptance is kept per vacancy
+function termsHtml() {
+  const items = [
+    "O'zbekiston Respublikasining fuqarosi bo'lmagan shaxslar;",
+    "o'n olti yoshga to'lmagan shaxslar;",
+    "muqaddam korrupsiyaga oid jinoyatlarni sodir etishda sud tomonidan aybdor deb topilgan shaxslar;",
+    "notarius, advokat, sudya, huquqni muhofaza qiluvchi yoki boshqa davlat organi faoliyatida nojo'ya xatti-harakatlari uchun lavozimdan bo'shatilgan shaxslar uch yil mobaynida ishga qabul qilish;",
+    "qonunchilikda belgilangan tartibda sud tomonidan muomalaga layoqatsiz yoki muomala layoqati cheklangan deb topilgan shaxslar.",
+  ];
+  return `<div class="oferta" id="oferta">
+    <div class="of-card">
+      <h3>Tanlovda ishtirok etish tartibi</h3>
+      <div class="of-body" id="ofBody">
+        <div class="of-warn"><b>DIQQAT!!!</b> Sud organlariga ishga kirish istagida bo'lgan nomzodlarning Oliy sud "vacancy.sud.uz" portali orqali taqdim etilgan shaxsga doir ma'lumotlari "SudHR" elektron platformasida saqlanadi va qayta ishlanadi. Nomzod ushbu ma'lumotlarni belgilangan maqsadlarda qayta ishlashga rozilik bildiradi.</div>
+        <p>"vacancy.sud.uz" portali – vakansiyalarni e'lon qilish, nomzodlarni ro'yxatdan o'tkazish, saralash, tanlash va ishga qabul qilish jarayonlarini tizimli tashkil etishga qaratilgan elektron portal.</p>
+        <p>"SudHR" elektron platformasi – mehnat munosabatlariga oid xodimlar (nomzodlar)ning ma'lumotlarini yig'ish, saqlash va qayta ishlash hamda kadrlar sohasidagi ish yuritish jarayonlarini kompleks avtomatlashtirish (raqamlashtirish), ushbu sohaga aloqador davlat organlari va tashkilotlari bilan axborot hamkorligini ta'minlashga mo'ljallangan platforma.</p>
+        <h4>I. Umumiy qoidalar</h4>
+        <p>Sud tizimiga jinsi, irqi, millati, tili, dini, e'tiqodi, ijtimoiy kelib chiqishi va ijtimoiy mavqeidan qat'i nazar, davlat tilini biladigan hamda lavozim uchun belgilangan malaka talablariga muvofiq bo'lgan O'zbekiston Respublikasi fuqarolari qabul qilinishi mumkin.</p>
+        <p>Quyidagi shaxslar sud organlariga ishga qabul qilinishi mumkin emas:</p>
+        ${items.map((t, k) => `<p class="of-li">${"abcde"[k]}) ${t}</p>`).join("")}
+      </div>
+      <div class="of-read"><i id="ofBar"></i></div>
+      <div class="of-foot"><button class="of-no">Rozi emasman</button><button class="of-yes" id="ofYes" disabled>Tanishdim va roziman</button></div>
+      <div class="of-done" id="ofDone"><span class="sc-ic">${ic("check", 18)}</span><b>Rozilik qayd etildi</b><small>Bu vakansiya shartlari qayta so'ralmaydi</small></div>
+    </div>
+  </div>`;
+}
+
+async function runTerms(sc) {
+  const btn = $("#sendBtn", sc);
+  btn.classList.add("press");
+  await wait(300);
+  btn.classList.remove("press");
+  const of = $("#oferta", sc), body = $("#ofBody", sc), bar = $("#ofBar", sc), yes = $("#ofYes", sc);
+  body.scrollTop = 0;
+  of.classList.add("on");
+  await wait(900);
+  // the applicant reads to the end: the text scrolls down, the bar under it fills
+  const end = body.scrollHeight - body.clientHeight, n = 60;
+  for (let k = 1; k <= n; k++) {
+    const t = k / n, e = t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+    body.scrollTop = end * e;
+    bar.style.width = t * 100 + "%";
+    await wait(40);
+  }
+  await wait(300);
+  yes.disabled = false;
+  yes.classList.add("ready");
+  await wait(700);
+  yes.classList.add("press");
+  await wait(250);
+  of.classList.add("done");
+  await wait(1300);
+  of.classList.remove("on", "done");
+  yes.classList.remove("press", "ready");
+  $("#ofAgreed", sc).classList.add("on");
+  toast("Tanlov shartlariga rozilik qayd etildi — endi ariza yuborish mumkin");
 }
 
 async function runSend(sc) {
