@@ -276,7 +276,7 @@ STEPS.push({
     ];
     const stats = [
       ["layers", 8, "bosqich bitta tizimda"],
-      ["link", 8, "davlat tizimi bilan integratsiya"],
+      ["link", 16, "ta tizim bilan integratsiya"],
       ["file", 4, "hujjat avtomatik tuziladi"],
       ["pen", 3, "bosqichda elektron imzo"],
     ];
