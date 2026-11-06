@@ -50,7 +50,7 @@ STEPS.push({
         </div>
         <aside class="card drill">
           <div class="card-h"><div><b>${esc(D.court)}</b><small>Bo'sh lavozimlar · ${D.vacant.length} ta</small></div><span class="tag warn">${fmt(pct(dc[2], dc[1]), 1)}%</span></div>
-          ${D.vacant.map((v) => `<div class="dv"><span class="dv-ic">${ic("briefcase", 16)}</span><div><b>${esc(v.pos)}</b><small>${esc(v.dept)} · ${v.days} kundan beri bo'sh</small></div><span class="tag ${v.days > 30 ? "warn" : "muted"}">${v.days > 30 ? "E'lon yo'q" : "Yangi"}</span></div>`).join("")}
+          ${D.vacant.map((v) => `<div class="dv"><span class="dv-ic">${ic("briefcase", 16)}</span><div><b>${esc(v.pos)}</b><small>${esc(v.dept)} · ${v.days} kundan beri bo'sh</small></div><span class="tag ${v.days > 1 ? "warn" : "muted"}">${v.days > 1 ? "E'lon yo'q" : "Yangi"}</span></div>`).join("")}
           <div class="dv-act">${ic("sparkles", 15)} Viloyat kadri sudga topshiriq beradi yoki e'lonni o'zi joylashtiradi — 1-qismdagi jarayon</div>
         </aside>
       </div>
