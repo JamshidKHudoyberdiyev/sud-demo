@@ -248,7 +248,7 @@ function xulosaHtml(p) {
   const t = STEPS.find((s) => s.id === "tekshiruv");
   t.title = "Kompleks tekshiruv xulosasi";
   t.short = "Tekshiruv";
-  t.lead = "Tekshiruvchi xodim xulosani tizimdagi shaklda to'ldiradi: shaxsiy ma'lumotlar arizadan tayyor turadi, bandlar tizimda belgilanadi (Nizomning 8-ilovasi). Xulosani ikki tekshiruvchi — HR va Komplaens — E-IMZO bilan imzolaydi.";
+  t.lead = "Tekshiruvchi xodim xulosani tizimdagi shaklda to'ldiradi: shaxsiy ma'lumotlar arizadan tayyor turadi, bandlar tizimda belgilanadi (Nizomning 8-ilovasi). Xulosani Kadrlar boshqarmasi va Komplaens E-IMZO bilan imzolaydi.";
   t.actor = { ini: DATA.hr.ini, name: DATA.hr.short, role: DATA.hr.role, sub: DATA.hr.dept };
   t.render = xulosaHtml;
   // a signed form opens on its signature
@@ -257,7 +257,7 @@ function xulosaHtml(p) {
   };
   t.actions = [
     { label: "Xulosani to'ldirish", icon: "check", run: runXulosa },
-    { label: "HR imzosi", icon: "pen", run: (sc) => runXulosaSign(sc, 0) },
+    { label: "Kadrlar boshqarmasi imzosi", icon: "pen", run: (sc) => runXulosaSign(sc, 0) },
     { label: "Komplaens imzosi", icon: "pen", run: (sc) => runXulosaSign(sc, 1) },
   ];
 }
@@ -290,7 +290,7 @@ async function runXulosa(sc) {
 async function runXulosaSign(sc, k) {
   const s = X_SIGNERS()[k];
   toFormEnd(sc);
-  await signFx(`${s.name} · ${s.org}`, k ? "Xulosa imzolandi" : "HR imzosi qo'yildi", "Kompleks tekshiruv xulosasi tasdiqlanmoqda");
+  await signFx(`${s.name} · ${s.org}`, k ? "Xulosa imzolandi" : "Kadrlar boshqarmasi imzosi qo'yildi", "Kompleks tekshiruv xulosasi tasdiqlanmoqda");
   const box = $(`[data-xs="${k}"]`, sc), qr = $("[data-xqr]", box), st = $("[data-xst]", box);
   await wait(450);
   box.classList.add("on");
@@ -299,7 +299,7 @@ async function runXulosaSign(sc, k) {
   st.innerHTML = `${ic("pen", 12)} ${s.date}`;
   if (k === 1) $("#cxDoc", sc).classList.add("signed");
   await wait(600);
-  toast(k ? "Xulosa HR va Komplaens imzosi bilan tasdiqlandi" : "HR imzoladi, navbat Komplaensda");
+  toast(k ? "Xulosa Kadrlar boshqarmasi va Komplaens imzosi bilan tasdiqlandi" : "Kadrlar boshqarmasi imzoladi, navbat Komplaensda");
 }
 
 // ---------------------------------------------------------------- 3. a livelier hiring finish
