@@ -258,8 +258,8 @@ button {
 /* the profile-card actor (name, position, department) is a bit roomier */
 .actor:has(.a-sub) {
   gap: 14px;
-  min-width: 380px;
-  padding: 7px 36px 7px 10px;
+  min-width: 0;
+  padding: 7px 24px 7px 10px;
   border-radius: 14px;
 }
 .actor:has(.a-sub) b {
