@@ -271,10 +271,11 @@ STEPS.push({
       ["user", "Ariza", "OneID, hujjatlar tizimdan"],
       ["inbox", "Inson resurslari boshqarmasi", "Muvofiqlik tekshiruvi"],
       ["shield", "Kompleks tekshiruv", "Xulosa tizimda, E-IMZO"],
+      ["clipboard", "Tanlov", "(suhbat va test)"],
       ["briefcase", "Ishga qabul", "Buyruq, shtat, xodim kartasi"],
     ];
     const stats = [
-      ["layers", 7, "bosqich bitta tizimda"],
+      ["layers", 8, "bosqich bitta tizimda"],
       ["link", 8, "davlat tizimi bilan integratsiya"],
       ["file", 4, "hujjat avtomatik tuziladi"],
       ["pen", 3, "bosqichda elektron imzo"],
