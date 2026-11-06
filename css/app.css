@@ -247,6 +247,14 @@ button {
 .actor b {
   font-size: 13px;
 }
+.actor b + small {
+  margin-top: 1px;
+  color: var(--ink-2);
+}
+.actor .a-sub {
+  color: var(--blue);
+  font-weight: 600;
+}
 .scene {
   position: relative;
   flex: 1 1 auto;

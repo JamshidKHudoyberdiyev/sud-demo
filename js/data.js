@@ -2,7 +2,15 @@
 // People, documents and the remaining numbers are synthetic.
 const DATA = {
   org: "O'zbekiston Respublikasi Oliy sudi",
-  hr: { name: "Hamroqulov Shavkat", role: "Inson resurslari boshqarmasi boshlig'i", ini: "HS" },
+  // name: full name (ERI key, F.I.O); short: how SudHR shows the user; role + dept: the profile card lines
+  hr: {
+    name: "Xamraqulov Shavkat",
+    short: "SH.S.XAMRAQULOV",
+    role: "Boshqarma boshlig'i",
+    dept: "Inson resurslari boshqarmasi",
+    post: "Inson resurslari boshqarmasi boshlig'i",
+    ini: "SX",
+  },
 
   // staff table of the court (no judge positions: they are never put up for vacancy)
   staff: [

@@ -43,7 +43,7 @@ function hrFrame(f, user, body) {
           <span class="ht-pop">${ic("grid", 14)} Ommabop arizalar</span>
           <span class="ht-bell">${ic("bell", 17)}<em>8</em></span>
           <span class="ht-lang">${ic("globe", 14)} O'zbek (Lotin)</span>
-          <span class="ht-user"><i>${esc(user.name[0])}</i>${esc(user.name.toUpperCase())}</span>
+          <span class="ht-user"><i>${esc(user.name[0])}</i>${esc(user.short || user.name.toUpperCase())}</span>
         </div>
         <div class="hr-page">
           ${f.page ? `<div class="hp-h"><h2>${esc(f.page)}</h2>${f.sub ? `<small>${esc(f.sub)}</small>` : ""}</div>` : ""}

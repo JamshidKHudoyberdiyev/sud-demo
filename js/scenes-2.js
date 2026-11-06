@@ -144,7 +144,7 @@ async function runChecks(sc) {
 }
 
 async function runCheckSign(sc) {
-  await signFx(`${DATA.hr.name} · Inson resurslari boshqarmasi`, "Xulosa imzolandi", "Kompleks tekshiruv xulosasi tasdiqlanmoqda");
+  await signFx(`${DATA.hr.short} · ${DATA.hr.dept}`, "Xulosa imzolandi", "Kompleks tekshiruv xulosasi tasdiqlanmoqda");
   $("#verdict", sc).classList.add("signed");
   const st = $("#vSt", sc);
   st.className = "tag ok pop";

@@ -4,7 +4,7 @@ STEPS.push({
   short: "Kirish",
   title: "SudHR tizimiga kirish",
   lead: "Kadrlar xodimi tizimga elektron raqamli imzo (ERI) kaliti bilan kiradi: parol yo'q, kirish shaxsan tasdiqlanadi.",
-  actor: { ini: DATA.hr.ini, role: DATA.hr.role, name: DATA.hr.name },
+  actor: { ini: DATA.hr.ini, name: DATA.hr.short, role: DATA.hr.role, sub: DATA.hr.dept },
   actions: [{ label: "ERI kaliti bilan kirish", icon: "key", run: runLogin }],
   render(p) {
     const done = p >= 1;
@@ -61,7 +61,7 @@ async function runLogin(sc) {
   key.classList.add("pop");
   await wait(600);
   key.classList.add("sel");
-  await signFx(`${DATA.hr.name} · ERI kaliti`, "Shaxs tasdiqlandi", "Kirish so'rovi imzolanmoqda");
+  await signFx(`${DATA.hr.short} · ERI kaliti`, "Shaxs tasdiqlandi", "Kirish so'rovi imzolanmoqda");
   $("#lgOk", sc).classList.add("on");
   await wait(500);
 }

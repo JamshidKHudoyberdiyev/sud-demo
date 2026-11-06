@@ -289,7 +289,13 @@ function show(i) {
   $("#stepNo").textContent = `${chOf(S.i)}.${noInCh(S.i)}`;
   $("#title").textContent = s.title;
   $("#lead").textContent = s.lead;
-  $("#actor").innerHTML = s.actor ? `${av(s.actor.ini, s.actor.tone || "")}<div><small>${esc(s.actor.role)}</small><b>${esc(s.actor.name)}</b></div>` : "";
+  const a = s.actor;
+  // an actor with `sub` is drawn like the SudHR profile card: name, position, department
+  $("#actor").innerHTML = !a
+    ? ""
+    : a.sub
+      ? `${av(a.ini, a.tone || "")}<div><b>${esc(a.name)}</b><small>${esc(a.role)}</small><small class="a-sub">${esc(a.sub)}</small></div>`
+      : `${av(a.ini, a.tone || "")}<div><small>${esc(a.role)}</small><b>${esc(a.name)}</b></div>`;
   const scene = $("#scene");
   scene.className = "scene enter";
   const fr = typeof s.frame === "function" ? s.frame(phase(s.id)) : s.frame;

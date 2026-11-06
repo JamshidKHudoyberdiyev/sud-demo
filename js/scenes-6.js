@@ -141,7 +141,7 @@ function arizaFx() {
 {
   const elon = STEPS.find((s) => s.id === "elon");
   elon.actions[1].run = async (sc) => {
-    await signFx(`${DATA.hr.name} · Inson resurslari boshqarmasi`, "Imzolandi", "E'lon elektron raqamli imzo bilan tasdiqlanmoqda");
+    await signFx(`${DATA.hr.short} · ${DATA.hr.dept}`, "Imzolandi", "E'lon elektron raqamli imzo bilan tasdiqlanmoqda");
     await publishFx();
     const card = $("#elonCard", sc), pill = $("#portalPill", sc);
     card.classList.add("published");
@@ -177,7 +177,7 @@ const XROWS = () => {
     { n: 14, t: "Ichki/tashqi tanlovda ishtirok etishga:", allow: true },
     { sec: "Kompleks tekshiruv oʻtkazgan xodim haqida maʼlumotlar" },
     { n: 15, t: "F.I.O", v: DATA.hr.name },
-    { n: 16, t: "Egallab turgan lavozimi", v: DATA.hr.role },
+    { n: 16, t: "Egallab turgan lavozimi", v: DATA.hr.post },
   ];
 };
 
@@ -195,7 +195,7 @@ function xulosaHtml(p) {
     <div class="cx-doc ${signed ? "signed" : ""}" id="cxDoc">
       <div class="x-title">Oliy sud xodimlarini (nomzodlarini) kompleks tekshirishdan oʻtkazish,<br>shu jumladan korrupsiyaviy xavf-xatarni aniqlash natijalari boʻyicha<br><b>XULOSA</b></div>
       <table class="x-tbl"><tbody>${rows}</tbody></table>
-      <div class="x-sign"><div><small>Tekshiruvchi</small><b>${esc(DATA.hr.name)}</b><span class="tag ${signed ? "ok" : "muted"}" id="xSt">${signed ? `${ic("pen", 12)} E-IMZO bilan imzolandi` : "Imzo kutilmoqda"}</span></div>
+      <div class="x-sign"><div><small>Tekshiruvchi</small><b>${esc(DATA.hr.short)}</b><span class="tag ${signed ? "ok" : "muted"}" id="xSt">${signed ? `${ic("pen", 12)} E-IMZO bilan imzolandi` : "Imzo kutilmoqda"}</span></div>
         <div class="x-qr ${signed ? "on" : ""}" id="xQr">${qrSvg(C.appNo)}<small>${signed ? "E-IMZO · 30.10.2026" : "Imzo kutilmoqda"}</small></div></div>
     </div>
   </div>`;
@@ -206,7 +206,7 @@ function xulosaHtml(p) {
   t.title = "Kompleks tekshiruv xulosasi";
   t.short = "Tekshiruv";
   t.lead = "Tekshiruvchi xodim xulosani tizimdagi shaklda to'ldiradi: shaxsiy ma'lumotlar arizadan tayyor turadi, bandlar tizimda belgilanadi, so'ng E-IMZO bilan imzolanadi.";
-  t.actor = { ini: DATA.hr.ini, role: "Kompleks tekshiruv", name: DATA.hr.name };
+  t.actor = { ini: DATA.hr.ini, name: DATA.hr.short, role: DATA.hr.role, sub: DATA.hr.dept };
   t.render = xulosaHtml;
   // a signed form opens on its signature
   t.mount = (sc, p) => {
@@ -243,7 +243,7 @@ async function runXulosa(sc) {
 }
 
 async function runXulosaSign(sc) {
-  await signFx(`${DATA.hr.name} · Inson resurslari boshqarmasi`, "Xulosa imzolandi", "Kompleks tekshiruv xulosasi tasdiqlanmoqda");
+  await signFx(`${DATA.hr.short} · ${DATA.hr.dept}`, "Xulosa imzolandi", "Kompleks tekshiruv xulosasi tasdiqlanmoqda");
   const qr = $("#xQr", sc);
   toFormEnd(sc);
   await wait(450);

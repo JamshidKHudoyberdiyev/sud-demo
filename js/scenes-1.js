@@ -1,5 +1,5 @@
 // Steps 1-4: vacant posts, the announcement, vacancy.sud.uz, the candidate's application.
-const HR_ACTOR = { ini: DATA.hr.ini, role: DATA.hr.role, name: DATA.hr.name };
+const HR_ACTOR = { ini: DATA.hr.ini, name: DATA.hr.short, role: DATA.hr.role, sub: DATA.hr.dept };
 const CAND_ACTOR = {
   ini: DATA.candidate.ini,
   role: "Nomzod",
@@ -228,7 +228,7 @@ async function runElonFill(sc) {
 
 async function runElonPublish(sc) {
   await signFx(
-    `${DATA.hr.name} · Inson resurslari boshqarmasi`,
+    `${DATA.hr.short} · ${DATA.hr.dept}`,
     "Imzolandi",
     "E'lon elektron raqamli imzo bilan tasdiqlanmoqda",
   );
