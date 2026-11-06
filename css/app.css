@@ -255,6 +255,25 @@ button {
   color: var(--blue);
   font-weight: 600;
 }
+/* the profile-card actor (name, position, department) is a bit roomier */
+.actor:has(.a-sub) {
+  gap: 14px;
+  min-width: 300px;
+  padding: 9px 28px 9px 9px;
+}
+.actor:has(.a-sub) b {
+  font-size: 15px;
+  letter-spacing: 0.2px;
+}
+.actor:has(.a-sub) small {
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+.actor:has(.a-sub) > .av {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+}
 .scene {
   position: relative;
   flex: 1 1 auto;
