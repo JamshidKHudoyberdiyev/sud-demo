@@ -21,7 +21,7 @@ const DATA2 = {
       { pos: "Katta konsultant", dept: "Devonxona", days: 41 },
       { pos: "Katta konsultant", dept: "Kadrlar bo'limi", days: 17 },
       { pos: "Bosh konsultant", dept: "Devonxona", days: 63 },
-      { pos: "Arxiv mudiri", dept: "Arxiv", days: 9 },
+      { pos: "Arxiv mudiri", dept: "Arxiv", days: 1 },
     ],
   },
 
