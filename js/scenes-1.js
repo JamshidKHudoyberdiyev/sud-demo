@@ -148,7 +148,7 @@ STEPS.push({
   },
   short: "E'lon",
   title: "Vakansiya e'lonini tayyorlash",
-  lead: "E'lon shtat birligidan avtomatik to'ldiriladi, elektron imzo bilan tasdiqlanib, bir bosishda portalga chiqadi.",
+  lead: "E'lon shtat birligidan avtomatik to'ldiriladi va bir bosishda portalga chiqadi.",
   actor: HR_ACTOR,
   actions: [
     {
@@ -156,7 +156,7 @@ STEPS.push({
       icon: "sparkles",
       run: runElonFill,
     },
-    { label: "Imzolash va e'lon qilish", icon: "send", run: runElonPublish },
+    { label: "E'lon qilish", icon: "send", run: runElonPublish },
   ],
   render(p) {
     const V = DATA.vacancy,
@@ -227,11 +227,6 @@ async function runElonFill(sc) {
 }
 
 async function runElonPublish(sc) {
-  await signFx(
-    `${DATA.hr.short} · ${DATA.hr.dept}`,
-    "Imzolandi",
-    "E'lon elektron raqamli imzo bilan tasdiqlanmoqda",
-  );
   const card = $("#elonCard", sc),
     pill = $("#portalPill", sc);
   await fly(card, pill, `${ic("file", 16)} E'lon ${DATA.vacancy.no}`, "doc");

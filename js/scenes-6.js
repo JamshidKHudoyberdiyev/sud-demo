@@ -140,8 +140,8 @@ function arizaFx() {
 
 {
   const elon = STEPS.find((s) => s.id === "elon");
+  // the announcement goes out without an e-signature: one click publishes it
   elon.actions[1].run = async (sc) => {
-    await signFx(`${DATA.hr.short} · ${DATA.hr.dept}`, "Imzolandi", "E'lon elektron raqamli imzo bilan tasdiqlanmoqda");
     await publishFx();
     const card = $("#elonCard", sc), pill = $("#portalPill", sc);
     card.classList.add("published");

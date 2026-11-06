@@ -266,7 +266,7 @@ STEPS.push({
     const done = p >= 1;
     const tl = [
       ["search", "Bo'sh o'rin", "Shtat jadvalidan"],
-      ["file", "E'lon", "Avto to'ldirish + imzo"],
+      ["file", "E'lon", "Avto to'ldirish, bir bosishda"],
       ["globe", "vacancy.sud.uz", "Ochiq portal"],
       ["user", "Ariza", "OneID, hujjatlar tizimdan"],
       ["inbox", "Inson resurslari boshqarmasi", "Muvofiqlik tekshiruvi"],
@@ -278,7 +278,7 @@ STEPS.push({
       ["layers", 8, "bosqich bitta tizimda"],
       ["link", 16, "ta tizim bilan integratsiya"],
       ["file", 4, "hujjat avtomatik tuziladi"],
-      ["pen", 3, "bosqichda elektron imzo"],
+      ["pen", 2, "bosqichda elektron imzo"],
     ];
     return `<div class="s9">
       <div class="tl ${done ? "on" : ""}" id="tl">

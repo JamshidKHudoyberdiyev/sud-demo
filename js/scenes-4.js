@@ -251,7 +251,7 @@ STEPS.push({
     const c1 = ["Bo'sh o'rinlar shtatdan avtomatik", "E'lon bir bosishda vacancy.sud.uz da", "Ariza OneID orqali, qog'ozsiz", "Kompleks tekshiruv xulosasi tizimda", "Ball va natija avtomatik", "Buyruq, shtat va xodim kartasi"];
     const c2 = ["Respublikadan 14 hududni nazorat qilish", "Viloyat va sud kesimida shtat, bo'sh o'rinlar", "Turniket: davomat va reytinglar", "16 ta tizimdan ma'lumot avtomatik", "SMART karta (ishlab chiqilmoqda)", "Xodimlar reytingi (taklif)"];
     const card = (t, n, list, go) => `<div class="card fin ${on ? "on" : ""}" data-go="${go}"><div class="fin-h"><span>${n}-qism</span><b>${t}</b></div>${list.map((x) => `<div class="fin-i">${ic("check", 15)}<span>${x}</span></div>`).join("")}</div>`;
-    const stats = [["14", "hudud"], ["16", "integratsiya"], ["1", "platforma"], ["3", "bosqichda E-IMZO"]];
+    const stats = [["14", "hudud"], ["16", "integratsiya"], ["1", "platforma"], ["2", "bosqichda E-IMZO"]];
     return `<div class="s16">
       <div class="fin-grid">${card("Tanlov va ishga qabul", 1, c1, 0)}${card("Respublika nazorati", 2, c2, STEPS.findIndex((s) => s.ch === 2))}</div>
       <div class="fin-stats">${stats.map(([v, t]) => `<div class="fs ${on ? "on" : ""}"><b data-v="${v}">${on ? v : 0}</b><small>${t}</small></div>`).join("")}</div>
