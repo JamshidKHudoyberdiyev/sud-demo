@@ -2,7 +2,7 @@
 // People, documents and the remaining numbers are synthetic.
 const DATA = {
   org: "O'zbekiston Respublikasi Oliy sudi",
-  hr: { name: "Rahmonov Sardor", role: "Inson resurslari boshqarmasi boshlig'i", ini: "RS" },
+  hr: { name: "Hamroqulov Shavkat", role: "Inson resurslari boshqarmasi boshlig'i", ini: "HS" },
 
   // staff table of the court (no judge positions: they are never put up for vacancy)
   staff: [
