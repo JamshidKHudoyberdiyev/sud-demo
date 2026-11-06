@@ -272,8 +272,9 @@ async function runXulosaSign(sc) {
     const st = $("#slotSt", sc);
     st.className = "tag ok pop";
     st.textContent = "Band";
-    countUp($("#vacK", sc), DATA.kpi.vacant - 1, { from: DATA.kpi.vacant, dur: 700 });
-    await countUp($("#busyK", sc), DATA.kpi.busy + 1, { from: DATA.kpi.busy, dur: 700 });
+    const K = DATA.hire.kpi;
+    countUp($("#vacK", sc), K.vacant - 1, { from: K.vacant, dur: 700 });
+    await countUp($("#busyK", sc), K.busy + 1, { from: K.busy, dur: 700 });
     await wait(200);
     const emp = $("#emp", sc);
     emp.scrollIntoView({ block: "nearest", behavior: "smooth" });
@@ -284,6 +285,6 @@ async function runXulosaSign(sc) {
     last.className = "fs-n ok pop";
     $("span", last).innerHTML = ic("check", 14);
     await wait(1100);
-    await bigOk("Xodim ishga qabul qilindi", `${C.name} · ${DATA.vacancy.pos}. Shtat birligi band, buyruq va xodim kartasi tayyor.`);
+    await bigOk("Xodim ishga qabul qilindi", `${C.name} · ${DATA.hire.org}, ${DATA.vacancy.pos.toLowerCase()}. Shtat birligi band, buyruq va xodim kartasi tayyor.`);
   };
 }

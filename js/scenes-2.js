@@ -158,38 +158,40 @@ STEPS.push({
   short: "Ishga qabul",
   title: "Buyruq va ishga qabul",
   lead: "Buyruq ariza va tanlov natijasidan avtomatik tuziladi, imzolanadi, shtat birligi band bo'ladi va xodim kartasi ochiladi.",
-  actor: HR_ACTOR,
+  // the regional court hires: its own personnel department draws up the order and fills the position
+  actor: { ini: DATA2.regionHr.ini, role: `${DATA.hire.org} · ${DATA.hire.hrDept}`, name: DATA2.regionHr.name },
   actions: [
     { label: "Buyruq loyihasini tuzish", icon: "file", run: runOrderDraft },
     { label: "Imzolash (E-IMZO)", icon: "pen", run: runOrderSign },
     { label: "Shtatga biriktirish", icon: "users", run: runAssign },
   ],
   render(p) {
-    const D = DATA, C = D.candidate, O = D.order, V = D.vacancy;
+    const D = DATA, C = D.candidate, O = D.order, V = D.vacancy, H = D.hire;
     const drafted = p >= 1, signed = p >= 2, hired = p >= 3;
     const body = orderText();
     const path = ["Yuborildi", "Ro'yxatga olish", "Kompleks tekshiruv", "Kelishuv (zarur bo'lsa)", "Ishga qabul"];
     return `<div class="s8">
       <div class="flow-st">${path.map((t, k) => `<div class="fs-n ${k < 4 || hired ? "ok" : "cur"}" data-fs="${k}"><span>${k < 4 || hired ? ic("check", 14) : k + 1}</span><small>${t}</small></div>`).join('<i class="fs-l"></i>')}</div>
       <div class="paper ${signed ? "signed" : ""}" id="paper">
-        <div class="pp-h"><small>${esc(D.org).toUpperCase()}</small><b>BUYRUQ</b><span>№ ${O.no} · ${O.date}</span></div>
+        <div class="pp-h"><small>${esc(H.org).toUpperCase()}</small><b>BUYRUQ</b><span>№ ${O.no} · ${O.date}</span></div>
         <div class="pp-sub">Ishga qabul qilish to'g'risida</div>
         ${body.map((t, k) => `<p class="pp-p" data-p="${k}">${drafted ? t : `<span class="skel w100"></span><span class="skel w70"></span>`}</p>`).join("")}
-        <div class="pp-sign"><div><small>Sud raisi</small><b>A. Qosimov</b></div>
+        <div class="pp-sign"><div><b>Sud raisi</b></div>
           <div class="seal qr-seal ${signed ? "on" : ""}" id="seal">${qrSvg(O.no)}<small>E-IMZO · ${O.date}</small></div></div>
       </div>
       <div class="s8-r">
         <div class="card slot ${hired ? "busy" : ""}" id="slot">
-          <div class="card-h"><div><b>Shtat birligi</b><small>${esc(V.dept)}</small></div><span class="tag ${hired ? "ok" : "warn"}" id="slotSt">${hired ? "Band" : "Bo'sh"}</span></div>
+          <div class="card-h"><div><b>Shtat birligi</b><small>${esc(H.org)} · ${esc(H.dept)}</small></div><span class="tag ${hired ? "ok" : "warn"}" id="slotSt">${hired ? "Band" : "Bo'sh"}</span></div>
           <div class="slot-row"><span>${ic("briefcase", 16)}</span><b>${esc(V.pos)}</b><span class="slot-who" id="slotWho">${hired ? `${av(C.ini, "sm cand")}${esc(C.short)}` : `<span class="muted">Bo'sh</span>`}</span></div>
-          <div class="slot-kpi"><div><small>Bo'sh ish o'rinlari</small><b id="vacK">${hired ? D.kpi.vacant - 1 : D.kpi.vacant}</b></div><div><small>Band shtatlar</small><b id="busyK">${hired ? D.kpi.busy + 1 : D.kpi.busy}</b></div></div>
+          <div class="slot-kpi"><div><small>Bo'sh ish o'rinlari</small><b id="vacK">${hired ? H.kpi.vacant - 1 : H.kpi.vacant}</b></div><div><small>Band shtatlar</small><b id="busyK">${hired ? H.kpi.busy + 1 : H.kpi.busy}</b></div></div>
         </div>
         <div class="card emp ${hired ? "on" : ""}" id="emp">
           <div class="emp-top">${av(C.ini, "lg cand")}<div><span class="tag ok">${ic("check", 12)} Faol xodim</span><b>${esc(C.name)}</b><small>${esc(V.pos)}</small></div></div>
           <div class="emp-grid">
             <div><small>Tabel raqami</small><b>${O.tabel}</b></div>
             <div><small>Ishga kirgan sana</small><b>${O.start}</b></div>
-            <div><small>Bo'lim</small><b>${esc(V.dept)}</b></div>
+            <div><small>Tashkilot</small><b>${esc(H.org)}</b></div>
+            <div><small>Bo'lim</small><b>${esc(H.dept)}</b></div>
             <div><small>Asos</small><b>Buyruq № ${O.no}</b></div>
           </div>
           <div class="emp-orders"><small>Xodim buyruqlari</small><div class="eo">${ic("file", 14)}<b>№ ${O.no}</b><span>Ishga qabul qilish to'g'risida</span><em>${O.date}</em></div></div>
@@ -201,10 +203,10 @@ STEPS.push({
 });
 
 function orderText() {
-  const D = DATA, C = D.candidate, V = D.vacancy, O = D.order;
+  const D = DATA, C = D.candidate, V = D.vacancy, O = D.order, H = D.hire;
   return [
-    `1. <mark>${esc(C.name)}</mark> ${O.start}dan ${esc(D.org)} ${esc(V.dept.toLowerCase())}ga <mark>${esc(V.pos.toLowerCase())}</mark> lavozimiga tanlov natijalariga ko'ra ishga qabul qilinsin.`,
-    `2. Inson resurslari boshqarmasi xodimning shaxsiy ishini rasmiylashtirsin va uni lavozim yo'riqnomasi bilan tanishtirsin.`,
+    `1. <mark>${esc(C.name)}</mark> ${O.start}dan ${esc(H.org)} ${esc(H.dept.toLowerCase())}siga <mark>${esc(V.pos.toLowerCase())}</mark> lavozimiga tanlov natijalariga ko'ra ishga qabul qilinsin.`,
+    `2. ${esc(H.hrDept)} xodimning shaxsiy ishini rasmiylashtirsin va uni lavozim yo'riqnomasi bilan tanishtirsin.`,
     `Asos: kompleks tekshiruv xulosasi, ${esc(C.short)}ning <mark>${C.appNo}</mark> raqamli arizasi.`,
   ];
 }
@@ -225,7 +227,7 @@ async function runOrderDraft(sc) {
 }
 
 async function runOrderSign(sc) {
-  await signFx("A. Qosimov · Sud raisi", "Buyruq imzolandi", `Buyruq № ${DATA.order.no} tasdiqlanmoqda`);
+  await signFx(`${DATA.hire.org} · Sud raisi`, "Buyruq imzolandi", `Buyruq № ${DATA.order.no} tasdiqlanmoqda`);
   $("#seal", sc).classList.add("on");
   $("#paper", sc).classList.add("signed");
   await wait(500);
@@ -240,8 +242,9 @@ async function runAssign(sc) {
   const st = $("#slotSt", sc);
   st.className = "tag ok pop";
   st.textContent = "Band";
-  countUp($("#vacK", sc), DATA.kpi.vacant - 1, { from: DATA.kpi.vacant, dur: 600 });
-  await countUp($("#busyK", sc), DATA.kpi.busy + 1, { from: DATA.kpi.busy, dur: 600 });
+  const K = DATA.hire.kpi;
+  countUp($("#vacK", sc), K.vacant - 1, { from: K.vacant, dur: 600 });
+  await countUp($("#busyK", sc), K.busy + 1, { from: K.busy, dur: 600 });
   await wait(250);
   $("#emp", sc).classList.add("on");
   const last = $('[data-fs="4"]', sc);

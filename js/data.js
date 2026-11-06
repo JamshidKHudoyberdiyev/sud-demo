@@ -87,5 +87,8 @@ const DATA = {
     { sys: "Mehnat vazirligi", t: "Ish tarixi", r: "4 yil 2 oy", ic: "briefcase" },
   ],
 
-  order: { no: "412-K", date: "30.10.2026", start: "3-noyabr 2026", tabel: "OS-0587" },
+  order: { no: "412-K", date: "30.10.2026", start: "3-noyabr 2026", tabel: "TV-0587" },
+  // the winner is hired by the regional court: the order, the staff position and the employee card are its own;
+  // staff numbers are the court's row in DATA2.courts (294 positions, 275 filled)
+  hire: { org: "Toshkent viloyat sudi", dept: "Devonxona", hrDept: "Kadrlar bo'limi", kpi: { busy: 275, vacant: 19 } },
 };
