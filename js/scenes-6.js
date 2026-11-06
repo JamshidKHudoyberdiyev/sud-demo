@@ -159,57 +159,87 @@ const XROWS = () => {
   const C = DATA.candidate;
   return [
     { sec: "Shaxsga oid maʼlumotlar" },
-    { n: 1, t: "F.I.O", v: C.name, photo: true },
+    // rows follow the official form: the Regulation on the HR-management system, annex 8
+    { n: 1, t: "F.I.O.", v: C.name, photo: true },
     { n: 2, t: "Tugʻilgan joyi va sanasi", v: `Toshkent sh., ${C.birth}` },
-    { n: 3, t: "Oilaviy holati", v: "Oilali" },
-    { n: 4, t: "Maʼlumoti (OTM, tugatgan yil, mutaxassislik)", v: "Toshkent davlat yuridik universiteti, 2019, Yurisprudensiya" },
-    { n: 5, t: "Umumiy ish staji / Sud tizimidagi staj", v: "4 yil 2 oy / —" },
+    { n: 3, t: "Millati", v: "Oʻzbek" },
+    { n: 4, t: "Oilaviy holati", v: "Oilali" },
+    { n: 5, t: "Maʼlumoti (OTM, tugatgan yil, mutaxassislik)", v: "Toshkent davlat yuridik universiteti, 2019, Yurisprudensiya" },
+    { n: 6, t: "Xalq deputatlari, respublika, viloyat, shahar va tuman Kengashi deputatimi yoki boshqa saylanadigan organlarning aʼzosimi?", yn: "no" },
+    { n: "6.1", t: "Ha boʻlsa, qaysi partiya aʼzosi:", sub: true },
+    { n: 7, t: "Umumiy staj / sud organlaridagi staj", v: `${C.exp} / —` },
+    { n: 8, t: "Egallab turgan lavozimi", v: "Yurist (xususiy sektor)" },
+    { n: 9, t: "Egallab turgan lavozimga tayinlangan sanasi", v: "01.09.2022" },
+    { n: 10, t: "Tanlovga qadar sud organlarida ishlaganmi?", yn: "no" },
+    { n: "10.1", t: "Ha boʻlsa, oxirgi lavozimi", sub: true },
     { sec: "Javobgarlikka tortilganlik holati" },
-    { n: 6, t: "Jinoiy javobgarlikka tortilganmi?", yn: true },
-    { n: 7, t: "Maʼmuriy javobgarlikka tortilganmi?", yn: true },
-    { n: 8, t: "Ijro ishlari mavjudmi?", yn: true },
-    { n: 9, t: "Soliq qarzdorligi bormi?", yn: true },
-    { n: 10, t: "Narkologik hisobda turadimi?", yn: true },
-    { n: 11, t: "Psixonevrologik hisobda turadimi?", yn: true },
+    { n: 11, t: "Jinoiy javobgarlikka tortilganmi?", yn: "no" },
+    { n: "11.1", t: "Ha boʻlsa, moddasini va sudlanganlik holati olib tashlangan yoki tugatilganligini koʻrsating", sub: true },
+    { n: 12, t: "Maʼmuriy javobgarlikka tortilganmi?", yn: "no" },
+    { n: "12.1", t: "Ha boʻlsa, moddasini koʻrsating", sub: true },
+    { n: 13, t: "Oxirgi bir yilda intizomiy javobgarlik qoʻllanilganmi?", yn: "no" },
+    { n: "13.1", t: "Ha boʻlsa, buyruq rekvizitlari va xatti-harakatning qisqacha mazmuni", sub: true },
+    { n: 14, t: "Korrupsion huquqbuzarlik bilan bogʻliq ishlarda ayblanuvchi sifatida ishtirok etganmi?", yn: "no" },
+    { n: "14.1", t: "Ha boʻlsa, moddasini koʻrsating", sub: true },
+    { sec: "Korrupsiyaga qarshi kurashish siyosati va tartib-taomillariga oid maʼlumot" },
+    { n: 15, t: "Korrupsiyaga qarshi kurashishga oid qonunchilik va ichki hujjatlarning mazmun va mohiyati bilan tanishmi?", yn: "yes" },
+    { n: 16, t: "Korrupsiyaga qarshi kurashish boʻyicha oʻquv mashgʻulotlarida qatnashganmi?", yn: "yes" },
+    { n: 17, t: "Kelgusidagi ish faoliyati va unga doir korrupsiyaviy xavf-xatarlar bilan tanishmi?", yn: "yes" },
+    { n: 18, t: "Tekshiruv davomida manfaatlar toʻqnashuvi aniqlanganmi?", yn: "no" },
+    { n: 19, t: "Xodim (nomzod) oʻziga yuklatilgan vazifalarni bajarish uchun yetarli salohiyatga egami?", yn: "yes" },
+    { n: 20, t: "Nomzodning korrupsiyaviy xatti-harakatlari yuzasidan maxsus aloqa kanallari yoki boshqa manbalar orqali xabarlar kelib tushganmi?", yn: "no" },
+    { n: "20.1", t: "Ha boʻlsa, aniq holatni koʻrsating", sub: true },
+    { n: 21, t: "Nomzodning shaxsi bilan bogʻliq korrupsiyaviy mojarolar OAV yoki internet tarmogʻida aniqlanganmi?", yn: "no" },
+    { n: "21.1", t: "Ha boʻlsa, aniq holatni koʻrsating", sub: true },
+    { n: 22, t: "Tekshiruv jarayonida umumiy korrupsiya xavfini oshiradigan boshqa xatarlar aniqlanganmi?", yn: "no" },
+    { n: "22.1", t: "Ha boʻlsa, aniq holatni koʻrsating", sub: true },
+    { n: 23, t: "Xavf darajasini kamaytirish uchun qoʻshimcha choralar koʻrish kerakmi?", yn: "no" },
     { sec: "Tekshirish natijalari" },
-    { n: 12, t: "Oldin ichki/tashqi tanlovda ishtirok etganmi?", yn: true },
-    { n: 13, t: "Nizomning 30-bandida koʻrsatilgan holatlar aniqlanganmi?", yn: true },
-    { n: 14, t: "Ichki/tashqi tanlovda ishtirok etishga:", allow: true },
-    { sec: "Kompleks tekshiruv oʻtkazgan xodim haqida maʼlumotlar" },
-    { n: 15, t: "F.I.O", v: DATA.hr.name },
-    { n: 16, t: "Egallab turgan lavozimi", v: DATA.hr.post },
+    { n: 24, t: "Ichki/tashqi tanlovda ishtirok etishga:", allow: true },
+    { sec: "Kompleks tekshiruv oʻtkazgan xodimlar (HR va Komplaens)" },
+    ...X_SIGNERS().flatMap((s, k) => [
+      { n: 25 + k * 2, t: "F.I.O.", v: s.full, signer: k },
+      { n: 26 + k * 2, t: "Egallab turgan lavozimi", v: s.post, signerPost: true },
+    ]),
   ];
 };
 
-// the conclusion is signed twice: first the compliance service, then the HR department
+// the conclusion is signed by both checkers, in the form's order: HR first, then compliance
 const X_SIGNERS = () => [
-  { org: "Komplayens nazorati xizmati", name: "A.T.NAZAROV", ini: "AN", date: "30.10.2026" },
-  { org: DATA.hr.dept, name: DATA.hr.short, ini: DATA.hr.ini, date: "30.10.2026" },
+  { org: DATA.hr.dept, tag: "HR", name: DATA.hr.short, full: DATA.hr.name, post: DATA.hr.post, date: "30.10.2026" },
+  { org: "Komplaens nazorati xizmati", tag: "Komplaens", name: "A.T.NAZAROV", full: "Nazarov Akmal Toirovich", post: "Komplaens nazorati xizmati bosh mutaxassisi", date: "30.10.2026" },
 ];
 
-function xSignHtml(s, k, on) {
-  return `<div class="xs-one ${on ? "on" : ""}" data-xs="${k}">
-    <div class="xs-who"><small>${esc(s.org)}</small><b>${esc(s.name)}</b>
-      <span class="tag ${on ? "ok" : "muted"}" data-xst>${on ? `${ic("pen", 12)} E-IMZO bilan imzolandi` : "Imzo kutilmoqda"}</span></div>
-    <div class="x-qr ${on ? "on" : ""}" data-xqr>${qrSvg(DATA.candidate.appNo + "-" + k)}<small>${on ? `E-IMZO · ${s.date}` : "Imzo kutilmoqda"}</small></div>
-  </div>`;
+// the "Elektron raqamli imzo" cell beside a checker's two rows
+function xSignCell(k, on) {
+  const s = X_SIGNERS()[k];
+  return `<td class="xsig ${on ? "on" : ""}" rowspan="2" data-xs="${k}">
+    <small>Elektron raqamli imzo</small>
+    <div class="x-qr ${on ? "on" : ""}" data-xqr>${qrSvg(DATA.candidate.appNo + "-" + k)}</div>
+    <span class="tag ${on ? "ok" : "muted"}" data-xst>${on ? `${ic("pen", 12)} ${s.date}` : "Imzo kutilmoqda"}</span>
+  </td>`;
 }
 
 function xulosaHtml(p) {
   const done = p >= 1, signed = p >= 3, C = DATA.candidate;
   const rows = XROWS().map((r, k) => {
-    if (r.sec) return `<tr class="x-sec"><td colspan="3">${r.sec}</td></tr>`;
+    if (r.sec) return `<tr class="x-sec"><td colspan="4">${r.sec}</td></tr>`;
     let cell;
-    if (r.yn) cell = `<span class="ck">Ha</span><span class="ck ${done ? "on" : ""}">Yo'q</span>`;
+    if (r.yn) cell = `<span class="ck ${done && r.yn === "yes" ? "on" : ""}">Ha</span><span class="ck ${done && r.yn === "no" ? "on" : ""}">Yoʻq</span>`;
     else if (r.allow) cell = `<span class="ck ${done ? "on" : ""}">Ruxsat etiladi</span><span class="ck">Ruxsat etilmaydi</span>`;
+    else if (r.sub) cell = `<span class="xv muted">—</span>`;
     else cell = `<span class="xv">${esc(r.v)}</span>`;
-    return `<tr data-x="${k}"><td class="xn">${r.n}</td><td class="xt">${r.t}</td><td class="xc">${cell}${r.photo ? `<span class="xph">${av(C.ini, "cand")}</span>` : ""}</td></tr>`;
+    const head = `<td class="xn">${r.n}</td><td class="xt">${r.t}</td>`;
+    // a checker's rows leave the last column to the signature
+    if (r.signer != null) return `<tr data-x="${k}" class="x-signer">${head}<td class="xc">${cell}</td>${xSignCell(r.signer, p >= 2 + r.signer)}</tr>`;
+    if (r.signerPost) return `<tr data-x="${k}" class="x-signer">${head}<td class="xc">${cell}</td></tr>`;
+    return `<tr data-x="${k}" class="${r.sub ? "x-subrow" : ""}">${head}<td class="xc" colspan="2">${cell}${r.photo ? `<span class="xph">${av(C.ini, "cand")}</span>` : ""}</td></tr>`;
   }).join("");
   return `<div class="cx solo">
     <div class="cx-doc ${signed ? "signed" : ""}" id="cxDoc">
-      <div class="x-title">Oliy sud xodimlarini (nomzodlarini) kompleks tekshirishdan oʻtkazish,<br>shu jumladan korrupsiyaviy xavf-xatarni aniqlash natijalari boʻyicha<br><b>XULOSA</b></div>
+      <div class="x-ilova">Sud organlarida inson resurslarini boshqarish boʻyicha<br>HR-menejment tizimi toʻgʻrisidagi nizomga 8-ilova</div>
+      <div class="x-title">Xodimlarni (nomzodlarni) kompleks tekshirishdan oʻtkazish,<br>shu jumladan korrupsiyaviy xavf-xatarni aniqlash natijalari boʻyicha<br><b>XULOSA</b></div>
       <table class="x-tbl"><tbody>${rows}</tbody></table>
-      <div class="x-sign two">${X_SIGNERS().map((s, k) => xSignHtml(s, k, p >= 2 + k)).join("")}</div>
     </div>
   </div>`;
 }
@@ -218,7 +248,7 @@ function xulosaHtml(p) {
   const t = STEPS.find((s) => s.id === "tekshiruv");
   t.title = "Kompleks tekshiruv xulosasi";
   t.short = "Tekshiruv";
-  t.lead = "Tekshiruvchi xodim xulosani tizimdagi shaklda to'ldiradi: shaxsiy ma'lumotlar arizadan tayyor turadi, bandlar tizimda belgilanadi. Xulosani Komplayens nazorati xizmati va Kadrlar boshqarmasi E-IMZO bilan imzolaydi.";
+  t.lead = "Tekshiruvchi xodim xulosani tizimdagi shaklda to'ldiradi: shaxsiy ma'lumotlar arizadan tayyor turadi, bandlar tizimda belgilanadi (Nizomning 8-ilovasi). Xulosani ikki tekshiruvchi — HR va Komplaens — E-IMZO bilan imzolaydi.";
   t.actor = { ini: DATA.hr.ini, name: DATA.hr.short, role: DATA.hr.role, sub: DATA.hr.dept };
   t.render = xulosaHtml;
   // a signed form opens on its signature
@@ -227,8 +257,8 @@ function xulosaHtml(p) {
   };
   t.actions = [
     { label: "Xulosani to'ldirish", icon: "check", run: runXulosa },
-    { label: "Komplayens xizmati imzosi", icon: "pen", run: (sc) => runXulosaSign(sc, 0) },
-    { label: "Kadrlar boshqarmasi imzosi", icon: "pen", run: (sc) => runXulosaSign(sc, 1) },
+    { label: "HR imzosi", icon: "pen", run: (sc) => runXulosaSign(sc, 0) },
+    { label: "Komplaens imzosi", icon: "pen", run: (sc) => runXulosaSign(sc, 1) },
   ];
 }
 
@@ -244,12 +274,13 @@ async function runXulosa(sc) {
     const r = XROWS()[+tr.dataset.x];
     tr.scrollIntoView({ block: "center", behavior: "smooth" });
     tr.classList.add("flash");
+    // the form is long now: answers tick quickly, empty "Ha bo'lsa" rows only blink
     if (r.yn || r.allow) {
-      await wait(330);
-      $$(".ck", tr)[r.allow ? 0 : 1].classList.add("on", "pop");
-      await wait(300);
-    } else await wait(360);
-    setTimeout(() => tr.classList.remove("flash"), 500);
+      await wait(170);
+      $$(".ck", tr)[r.allow || r.yn === "yes" ? 0 : 1].classList.add("on", "pop");
+      await wait(150);
+    } else await wait(r.sub ? 90 : 220);
+    setTimeout(() => tr.classList.remove("flash"), 450);
   }
   toFormEnd(sc);
   await wait(600);
@@ -259,17 +290,16 @@ async function runXulosa(sc) {
 async function runXulosaSign(sc, k) {
   const s = X_SIGNERS()[k];
   toFormEnd(sc);
-  await signFx(`${s.name} · ${s.org}`, k ? "Xulosa imzolandi" : "Komplayens imzosi qo'yildi", "Kompleks tekshiruv xulosasi tasdiqlanmoqda");
+  await signFx(`${s.name} · ${s.org}`, k ? "Xulosa imzolandi" : "HR imzosi qo'yildi", "Kompleks tekshiruv xulosasi tasdiqlanmoqda");
   const box = $(`[data-xs="${k}"]`, sc), qr = $("[data-xqr]", box), st = $("[data-xst]", box);
   await wait(450);
   box.classList.add("on");
   qr.classList.add("on");
-  $("small", qr).textContent = `E-IMZO · ${s.date}`;
   st.className = "tag ok pop";
-  st.innerHTML = `${ic("pen", 12)} E-IMZO bilan imzolandi`;
+  st.innerHTML = `${ic("pen", 12)} ${s.date}`;
   if (k === 1) $("#cxDoc", sc).classList.add("signed");
   await wait(600);
-  toast(k ? "Xulosa ikki imzo bilan tasdiqlandi" : `${s.org}: imzolandi, navbat ${DATA.hr.dept}da`);
+  toast(k ? "Xulosa HR va Komplaens imzosi bilan tasdiqlandi" : "HR imzoladi, navbat Komplaensda");
 }
 
 // ---------------------------------------------------------------- 3. a livelier hiring finish

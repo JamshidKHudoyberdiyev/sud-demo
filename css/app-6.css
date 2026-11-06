@@ -204,34 +204,52 @@
   }
 }
 
-/* two signatures under the check form: compliance service, then HR */
-.x-sign.two {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-  align-items: stretch;
+/* annex 8 form: the annex note, empty "Ha bo'lsa" rows, and the two checkers' signature cells */
+.x-ilova {
+  margin: -4px 0 12px auto;
+  max-width: 340px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.4;
+  text-align: right;
 }
-.xs-one {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 14px;
-  border: 1px dashed var(--line);
-  border-radius: 12px;
-  transition: border-color 0.4s ease, background 0.4s ease;
+.x-subrow td {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: var(--muted);
+  font-size: 12.5px;
 }
-.xs-one.on {
-  border-style: solid;
-  border-color: rgba(15, 130, 124, 0.35);
-  background: rgba(15, 130, 124, 0.04);
+.x-subrow .xn {
+  font-size: 11.5px;
 }
-.xs-who {
-  min-width: 0;
+.xv.muted {
+  color: var(--subtle);
+  font-weight: 400;
 }
-.x-sign.two .x-qr .qr {
-  width: 92px;
-  height: 92px;
+.x-tbl td.xsig {
+  width: 150px;
+  padding: 8px !important;
+  text-align: center;
+  vertical-align: middle;
+  transition: background 0.4s ease;
+}
+.xsig small {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.xsig .x-qr {
+  display: inline-flex;
+  margin-bottom: 6px;
+  padding: 5px;
+}
+.xsig .x-qr .qr {
+  width: 76px;
+  height: 76px;
+}
+.xsig.on {
+  background: rgba(15, 130, 124, 0.05);
 }
 
 /* the QR signature of the check form: waiting for the signature, then clear */
