@@ -1,6 +1,8 @@
 // Chapter 2, steps 1-3: the regional HR dashboard, employee search + SMART card, integrations.
 const REG_ACTOR = { ini: DATA2.regionHr.ini, role: DATA2.regionHr.role, name: DATA2.regionHr.name };
 const pct = (a, b) => (b ? (a / b) * 100 : 0);
+// a court's open announcements on vacancy.sud.uz (the per-court split of the "Ochiq e'lonlar" card)
+const annTag = (a, cls = "") => (a ? `<span class="tag info ${cls}">${a}</span>` : `<span class="muted">—</span>`);
 
 // ---------------------------------------------------------------- 2.1 region dashboard
 STEPS.push({
@@ -32,6 +34,7 @@ STEPS.push({
         <td class="num">${got ? s : `<span class="skel w30"></span>`}</td>
         <td class="num">${got ? f : `<span class="skel w30"></span>`}</td>
         <td class="num">${got ? `<span class="tag ${v >= 4 ? "warn" : v ? "muted" : "ok"}">${v}</span>` : `<span class="skel w30"></span>`}</td>
+        <td class="num">${got ? annTag(a) : `<span class="skel w30"></span>`}</td>
         <td><div class="fillbar ${fp < 88 ? "low" : ""}"><i style="width:${got ? fp : 0}%"></i></div></td>
         <td class="num pc">${got ? fmt(fp, 1) + "%" : ""}</td>
       </tr>`;
@@ -43,7 +46,7 @@ STEPS.push({
       <div class="s10-grid ${open ? "open" : ""}" id="s10g">
         <div class="card courts">
           <div class="card-h"><div><b>${DATA2.region} sudlari</b><small>${C.length} ta sud · shtat jadvallari bo'yicha</small></div><span class="tag info">${ic("clock", 12)} Real vaqtda</span></div>
-          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Sud</th><th class="num">Shtat</th><th class="num">Band</th><th class="num">Bo'sh</th><th>To'ldirilganlik</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
+          <div class="tbl-wrap"><table class="tbl"><thead><tr><th>Sud</th><th class="num">Shtat</th><th class="num">Band</th><th class="num">Bo'sh</th><th class="num">Ochiq e'lon</th><th>To'ldirilganlik</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
         </div>
         <aside class="card drill">
           <div class="card-h"><div><b>${esc(D.court)}</b><small>Bo'sh lavozimlar · ${D.vacant.length} ta</small></div><span class="tag warn">${fmt(pct(dc[2], dc[1]), 1)}%</span></div>
@@ -57,7 +60,7 @@ STEPS.push({
 
 async function runRegionCollect(sc) {
   const C = DATA2.courts;
-  for (const [k, [, s, f]] of C.entries()) {
+  for (const [k, [, s, f, a]] of C.entries()) {
     const tr = $(`[data-c="${k}"]`, sc);
     tr.classList.add("scan");
     const tds = $$("td", tr);
@@ -65,8 +68,9 @@ async function runRegionCollect(sc) {
     tds[2].textContent = f;
     const v = s - f;
     tds[3].innerHTML = `<span class="tag ${v >= 4 ? "warn" : v ? "muted" : "ok"} pop">${v}</span>`;
+    tds[4].innerHTML = annTag(a, "pop");
     $(".fillbar i", tr).style.width = pct(f, s) + "%";
-    tds[5].textContent = fmt(pct(f, s), 1) + "%";
+    tds[6].textContent = fmt(pct(f, s), 1) + "%";
     await wait(180);
     tr.classList.remove("scan");
   }
