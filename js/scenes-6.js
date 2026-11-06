@@ -181,8 +181,22 @@ const XROWS = () => {
   ];
 };
 
+// the conclusion is signed twice: first the compliance service, then the HR department
+const X_SIGNERS = () => [
+  { org: "Komplayens nazorati xizmati", name: "A.T.NAZAROV", ini: "AN", date: "30.10.2026" },
+  { org: DATA.hr.dept, name: DATA.hr.short, ini: DATA.hr.ini, date: "30.10.2026" },
+];
+
+function xSignHtml(s, k, on) {
+  return `<div class="xs-one ${on ? "on" : ""}" data-xs="${k}">
+    <div class="xs-who"><small>${esc(s.org)}</small><b>${esc(s.name)}</b>
+      <span class="tag ${on ? "ok" : "muted"}" data-xst>${on ? `${ic("pen", 12)} E-IMZO bilan imzolandi` : "Imzo kutilmoqda"}</span></div>
+    <div class="x-qr ${on ? "on" : ""}" data-xqr>${qrSvg(DATA.candidate.appNo + "-" + k)}<small>${on ? `E-IMZO · ${s.date}` : "Imzo kutilmoqda"}</small></div>
+  </div>`;
+}
+
 function xulosaHtml(p) {
-  const done = p >= 1, signed = p >= 2, C = DATA.candidate;
+  const done = p >= 1, signed = p >= 3, C = DATA.candidate;
   const rows = XROWS().map((r, k) => {
     if (r.sec) return `<tr class="x-sec"><td colspan="3">${r.sec}</td></tr>`;
     let cell;
@@ -195,8 +209,7 @@ function xulosaHtml(p) {
     <div class="cx-doc ${signed ? "signed" : ""}" id="cxDoc">
       <div class="x-title">Oliy sud xodimlarini (nomzodlarini) kompleks tekshirishdan oʻtkazish,<br>shu jumladan korrupsiyaviy xavf-xatarni aniqlash natijalari boʻyicha<br><b>XULOSA</b></div>
       <table class="x-tbl"><tbody>${rows}</tbody></table>
-      <div class="x-sign"><div><small>Tekshiruvchi</small><b>${esc(DATA.hr.short)}</b><span class="tag ${signed ? "ok" : "muted"}" id="xSt">${signed ? `${ic("pen", 12)} E-IMZO bilan imzolandi` : "Imzo kutilmoqda"}</span></div>
-        <div class="x-qr ${signed ? "on" : ""}" id="xQr">${qrSvg(C.appNo)}<small>${signed ? "E-IMZO · 30.10.2026" : "Imzo kutilmoqda"}</small></div></div>
+      <div class="x-sign two">${X_SIGNERS().map((s, k) => xSignHtml(s, k, p >= 2 + k)).join("")}</div>
     </div>
   </div>`;
 }
@@ -205,7 +218,7 @@ function xulosaHtml(p) {
   const t = STEPS.find((s) => s.id === "tekshiruv");
   t.title = "Kompleks tekshiruv xulosasi";
   t.short = "Tekshiruv";
-  t.lead = "Tekshiruvchi xodim xulosani tizimdagi shaklda to'ldiradi: shaxsiy ma'lumotlar arizadan tayyor turadi, bandlar tizimda belgilanadi, so'ng E-IMZO bilan imzolanadi.";
+  t.lead = "Tekshiruvchi xodim xulosani tizimdagi shaklda to'ldiradi: shaxsiy ma'lumotlar arizadan tayyor turadi, bandlar tizimda belgilanadi. Xulosani Komplayens nazorati xizmati va Kadrlar boshqarmasi E-IMZO bilan imzolaydi.";
   t.actor = { ini: DATA.hr.ini, name: DATA.hr.short, role: DATA.hr.role, sub: DATA.hr.dept };
   t.render = xulosaHtml;
   // a signed form opens on its signature
@@ -214,7 +227,8 @@ function xulosaHtml(p) {
   };
   t.actions = [
     { label: "Xulosani to'ldirish", icon: "check", run: runXulosa },
-    { label: "Xulosani imzolash", icon: "pen", run: runXulosaSign },
+    { label: "Komplayens xizmati imzosi", icon: "pen", run: (sc) => runXulosaSign(sc, 0) },
+    { label: "Kadrlar boshqarmasi imzosi", icon: "pen", run: (sc) => runXulosaSign(sc, 1) },
   ];
 }
 
@@ -242,18 +256,20 @@ async function runXulosa(sc) {
   toast("Xulosa to'ldirildi: to'sqinlik qiluvchi holat yo'q");
 }
 
-async function runXulosaSign(sc) {
-  await signFx(`${DATA.hr.short} · ${DATA.hr.dept}`, "Xulosa imzolandi", "Kompleks tekshiruv xulosasi tasdiqlanmoqda");
-  const qr = $("#xQr", sc);
+async function runXulosaSign(sc, k) {
+  const s = X_SIGNERS()[k];
   toFormEnd(sc);
+  await signFx(`${s.name} · ${s.org}`, k ? "Xulosa imzolandi" : "Komplayens imzosi qo'yildi", "Kompleks tekshiruv xulosasi tasdiqlanmoqda");
+  const box = $(`[data-xs="${k}"]`, sc), qr = $("[data-xqr]", box), st = $("[data-xst]", box);
   await wait(450);
+  box.classList.add("on");
   qr.classList.add("on");
-  $("small", qr).textContent = "E-IMZO · 30.10.2026";
-  $("#cxDoc", sc).classList.add("signed");
-  const st = $("#xSt", sc);
+  $("small", qr).textContent = `E-IMZO · ${s.date}`;
   st.className = "tag ok pop";
   st.innerHTML = `${ic("pen", 12)} E-IMZO bilan imzolandi`;
+  if (k === 1) $("#cxDoc", sc).classList.add("signed");
   await wait(600);
+  toast(k ? "Xulosa ikki imzo bilan tasdiqlandi" : `${s.org}: imzolandi, navbat ${DATA.hr.dept}da`);
 }
 
 // ---------------------------------------------------------------- 3. a livelier hiring finish

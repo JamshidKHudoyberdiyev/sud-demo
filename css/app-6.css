@@ -204,6 +204,36 @@
   }
 }
 
+/* two signatures under the check form: compliance service, then HR */
+.x-sign.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: stretch;
+}
+.xs-one {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  transition: border-color 0.4s ease, background 0.4s ease;
+}
+.xs-one.on {
+  border-style: solid;
+  border-color: rgba(15, 130, 124, 0.35);
+  background: rgba(15, 130, 124, 0.04);
+}
+.xs-who {
+  min-width: 0;
+}
+.x-sign.two .x-qr .qr {
+  width: 92px;
+  height: 92px;
+}
+
 /* the QR signature of the check form: waiting for the signature, then clear */
 .x-qr {
   border-style: dashed;
