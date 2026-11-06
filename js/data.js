@@ -41,6 +41,17 @@ const DATA = {
     rate: "1,0 shtat birligi",
     term: "30.10.2026 — 14.11.2026",
     reqs: ["Oliy yuridik ma'lumot", "Kamida 1 yil ish staji", "Kompyuter savodxonligi", "Davlat tilini bilish"],
+    // the qualification requirements of a Katta konsultant, as given by the HR department
+    edu: "Yurisprudensiya",
+    minExp: "1 yil",
+    minReqs: [
+      "Tegishli qonunchilik va amaliyotni bilish; mustaqil huquqiy tahlil, xulosa va takliflar tayyorlash; mutaxassislarga uslubiy ko'mak berish",
+      "Kompyuter, ofis dasturlari, elektron pochta va elektron hujjat aylanishi tizimlaridan foydalanish",
+      "Xizmat hujjatlari, rasmiy xatlar, ma'lumotnomalar va hisobotlarni savodli tayyorlash hamda rasmiylashtirish",
+      "Ma'lumotlarni izlash, tekshirish, tizimlashtirish va elektron jadvallar orqali tahlil qilish",
+      "Lavozim vazifalariga oid qonunchilik, ichki tartib-qoidalar va ish yo'riqnomalarini amalda qo'llash",
+      "Xizmat muloqoti, jamoada ishlash, maxfiylik va belgilangan muddatlarga rioya qilish",
+    ],
   },
 
   portal: [

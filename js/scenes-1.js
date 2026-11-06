@@ -276,8 +276,9 @@ function vacDetailHtml(btnId) {
           <div><span>${ic("pin", 15)}</span><small>Hudud</small><b>Toshkent shahri</b></div>
           <div><span>${ic("calendar", 15)}</span><small>Muddati</small><b>${V.until}</b></div>
         </div>
-        <div class="vd-sec">Talablar</div>
-        <p class="vd-req">${V.reqs.join(", ")}.</p>
+        <div class="vd-sec">Malaka talablari</div>
+        <div class="vd-min"><b>Ma'lumot va mutaxassislik:</b> ${esc(V.edu)}. <b>Ish staji:</b> ${esc(V.minExp)}.</div>
+        <ol class="vd-list">${V.minReqs.map((r) => `<li>${esc(r)}.</li>`).join("")}</ol>
         <div class="vd-sec">Bog'lanish</div>
         <div class="vd-kv"><div><span>${ic("phone", 15)}</span><small>Telefon</small><b>+998 71 000-00-00</b></div><div><span>${ic("mail", 15)}</span><small>Elektron pochta</small><b>kadrlar@namuna.uz</b></div></div>
       </div>
